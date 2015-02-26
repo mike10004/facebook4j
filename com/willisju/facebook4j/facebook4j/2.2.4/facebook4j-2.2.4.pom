@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.willisju.facebook4j</groupId>
+  <artifactId>facebook4j</artifactId>
+  <version>2.2.4</version>
+  <packaging>pom</packaging>
+  <name>facebook4j</name>
+  <description>A Java library for the Facebook Graph API</description>
+  <url>http://facebook4j.org/</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <properties>
+      <github.global.server>github</github.global.server>
+      <localRepoPath></localRepoPath>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+  
+   <scm>
+    <connection>scm:git:https://github.com/willisju/facebook4j.git</connection>
+    <developerConnection>scm:git:git@github.com:willisju/facebook4j.git</developerConnection>
+    <url>https://github.com/willisju/facebook4j.git</url>
+    <tag>HEAD</tag>
+  </scm>
+  <developers>
+    <developer>
+      <id>roundrop</id>
+      <name>Ryuji</name>
+      <email>roundrop@gmail.com</email>
+      <url>http://blog.roundrop.jp/</url>
+      <roles>
+        <role>lead</role>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+9</timezone>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>Jira</system>
+    <url>https://roundrop.atlassian.net/browse/FFJ</url>
+  </issueManagement>
+  <distributionManagement>
+    <repository>
+        <id>internal.repo</id>
+        <name>Temporary Staging Repository</name>
+        <url>file://${project.build.directory}/mvn-repo</url>
+    </repository>
+  </distributionManagement>
+
+      <build>
+        <plugins>
+		  <plugin>
+			<artifactId>maven-deploy-plugin</artifactId>
+			<version>2.8.1</version>
+			<configuration>
+				<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+			</configuration>
+		  </plugin>
+      
+       
+      <plugin>
+          <groupId>com.github.github</groupId>
+          <artifactId>site-maven-plugin</artifactId>
+          <version>0.11</version>
+          <configuration>
+              <message>Maven artifacts for ${project.version}</message> 
+              <noJekyll>true</noJekyll>                                 
+			  <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+              <branch>refs/heads/mvn-repo</branch>                       
+              <includes><include>**/*</include></includes>
+              <repositoryName>facebook4j</repositoryName>     
+              <repositoryOwner>willisju</repositoryOwner> 
+              <dryRun>false</dryRun>  
+              <merge>true</merge>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>site</goal>
+              </goals>
+              <phase>deploy</phase>
+            </execution>
+          </executions>
+      </plugin>
+      <!--
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+		  -->
+        </plugins>
+      </build>
+    
+  <modules>
+    <module>facebook4j-core</module>
+  </modules>
+</project>
