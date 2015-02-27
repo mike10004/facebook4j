@@ -2,15 +2,15 @@
 Facebook4J is a Facebook Graph API binding library for the Java language licensed under Apache License 2.0.
 
 ## Version
-2.2.2
+2.3.0
 
 ## Install
 
 ```xml
 <dependency>
-  <groupId>org.facebook4j</groupId>
+  <groupId>com.github.willisju</groupId>
   <artifactId>facebook4j-core</artifactId>
-  <version>[2.2,)</version>
+  <version>2.3.0</version>
 </dependency>
 ```
 
@@ -59,6 +59,26 @@ You can get Page Access Token as below:
 ResponseList<Account> accounts = facebook.getAccounts();
 Account yourPageAccount = accounts.get(0);  // if index 0 is your page account.
 String pageAccessToken = yourPageAccount.getAccessToken();
+```
+
+#### Versioning
+
+```java
+ConfigurationBuilder cb = new ConfigurationBuilder()  
+    .setOAuthAppId(client.id)  
+    .setOAuthAppSecret(client.secret)  
+    .setGraphVersion(GraphVersion.V2_0)  
+    .setOAuthPermissions(ALL_PERMISSIONS);  
+Facebook facebook = new FacebookFactory(cb.build()).getInstance();   
+```
+
+or 
+
+```java
+Facebook facebook = new FacebookFactory().getInstance(); 
+facebook.setOAuthAppId(client.id, client.secret);
+facebook.setOAuthAccessToken(accessToken);
+facebook.setGraphVersion(GraphVersion.UNVERSIONED);
 ```
 
 - - -
